@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -27,7 +29,7 @@ app.use((error, req, res, next) => {
 });
 
 mongoose
-  .connect('mongodb+srv://manu:academind123@cluster0-ntrwp.mongodb.net/places?retryWrites=true&w=majority')
+  .connect(process.env.MONGO_DB_URI)
   .then(() => {
     app.listen(5000);
   })
