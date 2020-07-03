@@ -3,6 +3,8 @@ require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const helmet = require("helmet");
+const RateLimit = require("express-rate-limit");
 
 const placesRoutes = require("./routes/places-routes");
 const usersRoutes = require("./routes/users-routes");
@@ -11,6 +13,16 @@ const HttpError = require("./models/http-error");
 const app = express();
 
 app.use(bodyParser.json());
+// helmet setup
+app.use(helmet());
+
+// Rate limit setup
+const limiter = new RateLimit({
+  windowMs: 15 * 60 * 1000, // 15minutes
+  max: 100, // limit of number of request per IP
+  delayMs: 0, // disables delays
+});
+app.use(limiter);
 
 app.use("/api/places", placesRoutes);
 app.use("/api/users", usersRoutes);
