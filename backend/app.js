@@ -12,17 +12,16 @@ const HttpError = require("./models/http-error");
 
 const app = express();
 
-app.use(bodyParser.json());
-// helmet setup
-app.use(helmet());
-
-// Rate limit setup
 const limiter = new RateLimit({
   windowMs: 15 * 60 * 1000, // 15minutes
   max: 100, // limit of number of request per IP
   delayMs: 0, // disables delays
 });
-app.use(limiter);
+
+app.use(bodyParser.json());
+
+app.use(helmet()); // helmet setup
+app.use(limiter); // Rate limit setup
 
 app.use("/api/places", placesRoutes);
 app.use("/api/users", usersRoutes);
