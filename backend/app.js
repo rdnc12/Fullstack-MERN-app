@@ -4,6 +4,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const helmet = require("helmet");
+const favicon = require("serve-favicon");
 const RateLimit = require("express-rate-limit");
 
 const placesRoutes = require("./routes/places-routes");
@@ -25,7 +26,8 @@ app.use(limiter); // Rate limit setup
 
 app.use("/api/places", placesRoutes);
 app.use("/api/users", usersRoutes);
-
+// uncomment after placing your favicon in /public
+//app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use((req, res, next) => {
   const error = new HttpError("Could not find this route.", 404);
   throw error;
@@ -48,5 +50,5 @@ mongoose
     app.listen(5000);
   })
   .catch((err) => {
-    console.log(err);
+    throw new Error(err);
   });
