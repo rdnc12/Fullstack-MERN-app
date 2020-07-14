@@ -1,11 +1,19 @@
+// HTML forms provide three methods of encoding.
+
+// application/x-www-form-urlencoded (the default)
+// multipart/form-data
+// text/plain
+
 const multer = require('multer');
 const uuid = require('uuid/v1');
 
+// Browsers use the MIME type, not the file extension
 const MIME_TYPE_MAP = {
   'image/png': 'png',
   'image/jpeg': 'jpeg',
   'image/jpg': 'jpg'
 };
+
 
 const fileUpload = multer({
   limits: 500000,

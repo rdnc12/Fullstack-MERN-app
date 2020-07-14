@@ -13,8 +13,9 @@ const userSchema = new Schema({
   image: { type: String, required: true },
   places: [{ type: mongoose.Types.ObjectId, required: true, ref: "Place" }],
 });
-
+// mongoose-unique-validator is a plugin which adds pre-save validation for unique fields within a Mongoose schema.
 userSchema.plugin(uniqueValidator);
+//Pre middleware functions are executed one after another, when each middleware calls next.
 userSchema.pre("save", async function preSave(next) {
   const user = this;
   if (!user.isModified("password")) return next();

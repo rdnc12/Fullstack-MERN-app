@@ -2,6 +2,9 @@ import { useState, useCallback, useEffect } from 'react';
 
 let logoutTimer;
 
+// In simple terms, authentication is the process of verifying who a user is,
+// while authorization is the process of verifying what they have access to.
+
 export const useAuth = () => {
   const [token, setToken] = useState(false);
   const [tokenExpirationDate, setTokenExpirationDate] = useState();

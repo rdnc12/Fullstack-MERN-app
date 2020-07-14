@@ -15,6 +15,7 @@ const HttpError = require("./models/http-error");
 
 const app = express();
 
+//Basic rate-limiting middleware for Express. Use to limit repeated requests to public APIs and/or endpoints such as password reset.
 const limiter = new RateLimit({
   windowMs: 15 * 60 * 1000, // 15minutes
   max: 100, // limit of number of request per IP
@@ -35,13 +36,19 @@ app.use((req, res, next) => {
 
   next();
 });
-
+// Helmet helps you secure your Express apps by setting various HTTP headers.
+/*
+defaults
+1-)contentSecurityPolicy for setting Content Security Policy
+2-)crossdomain for handling Adobe products' crossdomain requests
+3-)expectCt for handling Certificate Transparency
+4-)referrerPolicy to hide the Referer header*/ 
 app.use(helmet()); // helmet setup
 app.use(limiter); // Rate limit setup
 
 app.use("/api/places", placesRoutes);
 app.use("/api/users", usersRoutes);
-// uncomment after placing your favicon in /public
+
 app.use(favicon(__dirname + "/public/favicon.png"));
 
 app.use((req, res, next) => {
