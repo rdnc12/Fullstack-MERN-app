@@ -12,6 +12,14 @@ const userSchema = new Schema({
   password: { type: String, required: true, minlength: 6, trim: true },
   image: { type: String, required: true },
   places: [{ type: mongoose.Types.ObjectId, required: true, ref: "Place" }],
+  bucketList: [
+    {
+      id: { type: mongoose.Types.ObjectId, required: true, ref: "Place" },
+      _id: false,
+      createdBy: { type: String },
+      isVisited: { type: Boolean },
+    },
+  ],
 });
 // mongoose-unique-validator is a plugin which adds pre-save validation for unique fields within a Mongoose schema.
 userSchema.plugin(uniqueValidator);

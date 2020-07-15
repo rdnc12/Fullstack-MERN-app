@@ -2,6 +2,7 @@ const express = require('express');
 const { check } = require('express-validator');
 
 const usersController = require('../controllers/users-controllers');
+const bucketlistControllers = require('../controllers/bucketList-controller');
 const fileUpload = require('../middleware/file-upload');
 
 const router = express.Router();
@@ -24,5 +25,9 @@ router.post(
 );
 
 router.post('/login', usersController.login);
+router.get('/bucketlist/:uid', bucketlistControllers.getBucketList);
+router.patch('/bucketlist/:pid', bucketlistControllers.createBucketList);
+router.put('/bucketlist/:pid', bucketlistControllers.visitedPlace);
+router.delete('/bucketlist/:pid', bucketlistControllers.deleteBucketList);
 
 module.exports = router;

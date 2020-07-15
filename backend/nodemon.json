@@ -1,0 +1,7 @@
+{
+    "env":{
+        "DB_USER":"admin-erdinc",
+        "DB_NAME":"place",
+        "JWT_KEY":"supersecret_dont_share"
+    }
+}
